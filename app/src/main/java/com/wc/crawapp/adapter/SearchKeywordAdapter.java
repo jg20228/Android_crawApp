@@ -12,11 +12,23 @@ import com.wc.crawapp.R;
 import com.wc.crawapp.databinding.MenuItemBinding;
 import com.wc.crawapp.model.Product;
 import com.wc.crawapp.model.SearchKeyword;
+import com.wc.crawapp.viewmodel.ProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchKeywordAdapter extends RecyclerView.Adapter<SearchKeywordAdapter.SearchKeyHolder>{
+
+    private static final String TAG = "SearchKeywordAdapter";
+
+    private ProductViewModel productViewModel;
+
+    public SearchKeywordAdapter() {
+    }
+
+    public SearchKeywordAdapter(ProductViewModel productViewModel) {
+        this.productViewModel = productViewModel;
+    }
 
     class SearchKeyHolder extends RecyclerView.ViewHolder{
 
@@ -52,6 +64,7 @@ public class SearchKeywordAdapter extends RecyclerView.Adapter<SearchKeywordAdap
         //holder에다가 데이터를 넣어주기만 하면된다.
         SearchKeyword searchKeyword = searchKeywords.get(position); //현재 위치에 있는 값을 받음
         holder.menuItemBinding.setSearchKeyword(searchKeyword);//아까 만든 <data></data>에 이 값이 들어감
+        holder.menuItemBinding.setProductViewModel(productViewModel);
     }
 
     @Override

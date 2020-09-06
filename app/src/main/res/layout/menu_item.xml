@@ -7,22 +7,22 @@
             name="searchKeyword"
             type="com.wc.crawapp.model.SearchKeyword"
             />
+        <variable
+            name="productViewModel"
+            type="com.wc.crawapp.viewmodel.ProductViewModel" />
     </data>
 
     <LinearLayout
-
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_marginRight="30dp"
-        >
+        android:layout_height="wrap_content">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/circle_shape"
-            android:text="@{searchKeyword.keyword}"/>
-
+            android:layout_margin="10dp"
+            android:text="@{searchKeyword.keyword}"
+            android:onClick="@{() -> productViewModel.changeData(searchKeyword.id)}"/>
     </LinearLayout>
-
 </layout>

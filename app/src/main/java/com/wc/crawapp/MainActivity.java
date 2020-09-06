@@ -8,22 +8,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.wc.crawapp.adapter.ProductAdapter;
 import com.wc.crawapp.adapter.SearchKeywordAdapter;
 import com.wc.crawapp.model.Product;
 import com.wc.crawapp.model.SearchKeyword;
+import com.wc.crawapp.viewmodel.ProductViewModel;
 import com.wc.crawapp.viewmodel.SearchKeywordViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
     private MainActivity mContext = MainActivity.this;
     private RecyclerView rvMenu, rvContainer;
     private SearchKeywordAdapter searchKeywordAdapter;
     private ProductAdapter productAdapter;
     private SearchKeywordViewModel searchKeywordViewModel;
+    private ProductViewModel productViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
         rvMenu = findViewById(R.id.rv_menu);
         rvContainer = findViewById(R.id.rv_container);
 
-        searchKeywordAdapter = new SearchKeywordAdapter();
-        productAdapter = new ProductAdapter();
+        // 이벤트 바인딩을 위해 ViewModel을 어댑터보다 먼저 생성
+        searchKeywordViewModel =
+                ViewModelProviders.of(mContext).get(SearchKeywordViewModel.class);
+        productViewModel  =
+                ViewModelProviders.of(mContext).get(ProductViewModel.class);
 
-        searchKeywordViewModel = ViewModelProviders.of(mContext).get(SearchKeywordViewModel.class);
+        searchKeywordAdapter = new SearchKeywordAdapter(productViewModel);
+        productAdapter = new ProductAdapter();
     }
 
     private void initSetting(){
@@ -57,14 +66,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        searchKeywordViewModel.데이터등록();
+
         searchKeywordViewModel.구독().observe(mContext, new Observer<List<SearchKeyword>>() {
             @Override
             public void onChanged(List<SearchKeyword> searchKeywords) {
+                Log.d(TAG, "onChanged: 데이터 변경이 감지 되었습니다.");
                 searchKeywordAdapter.setSearchKeywords(searchKeywords);
                 searchKeywordAdapter.notifyDataSetChanged();
             }
         });
+        searchKeywordViewModel.데이터등록();
+
+        productViewModel.구독().observe(mContext, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> products) {
+                Log.d(TAG, "onChanged: 데이터 변경이 감지 되었습니다.");
+                productAdapter.setProducts(products);
+                productAdapter.notifyDataSetChanged();
+            }
+        });
+
+        productViewModel.데이터등록();
     }
 
     //테스트 용도

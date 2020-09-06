@@ -17,7 +17,7 @@ public interface RetrofitService {
     Call<List<SearchKeyword>> callKeywords();
 
     @GET("/product/{keyword}")
-    Call<List<Product>> callProductByKeyword(@Path("keyword") String keyword);
+    Call<List<Product>> callProductByKeyword(@Path("keyword") int keywordId);
     //키워드를 던지고 그 키워드로 findByKeyword해서 던져야함
 
     @GET("/product")

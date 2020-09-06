@@ -32,7 +32,6 @@ public class Product {
         Glide.with(view.getContext())
                 .load(thumnail)
                 .error(R.drawable.ic_default) //에러 났을대 사진
-
                 .placeholder(R.color.colorAccent)
                 .into(view);
     }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder>{
+    private static final String TAG = "ProductAdapter";
     // 만든 순서 : 내부 클래스 생성 -> Adapter가 extends를 함
     class ProductHolder extends RecyclerView.ViewHolder{
 
