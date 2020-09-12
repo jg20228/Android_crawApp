@@ -5,9 +5,13 @@
         <variable
             name="product"
             type="com.wc.crawapp.model.Product" />
+        <variable
+            name="mainActivity"
+            type="com.wc.crawapp.MainActivity" />
     </data>
 
     <RelativeLayout
+        android:onClick="@{() -> mainActivity.detail(product.blogUrl)}"
         android:layout_width="match_parent"
         android:layout_height="100dp">
 

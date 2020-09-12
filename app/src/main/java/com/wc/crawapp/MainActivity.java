@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 ViewModelProviders.of(mContext).get(ProductViewModel.class);
 
         searchKeywordAdapter = new SearchKeywordAdapter(productViewModel);
-        productAdapter = new ProductAdapter();
+        productAdapter = new ProductAdapter(mContext);
     }
 
     private void initSetting(){
@@ -109,5 +110,12 @@ public class MainActivity extends AppCompatActivity {
         products.add(Product.builder().title("제목3").day("3일전").thumnail("https://pgnqdrjultom1827145.cdn.ntruss.com/img/de/8a/de8acb0b3ec140dd2cd53806cbd29cf204be769bd51f8e189a60a58c010f5b93_v1.jpg").build());
         products.add(Product.builder().title("제목3").day("3일전").thumnail("https://pgnqdrjultom1827145.cdn.ntruss.com/img/de/8a/de8acb0b3ec140dd2cd53806cbd29cf204be769bd51f8e189a60a58c010f5b93_v1.jpg").build());
         productAdapter.setProducts(products);
+    }
+
+    public void detail(String blogUrl){
+        Log.d(TAG, "hello: blogUrl : "+blogUrl);
+        Intent intent = new Intent(mContext, DetailActivity.class);
+        intent.putExtra("blogUrl", blogUrl);
+        startActivity(intent);
     }
 }

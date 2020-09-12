@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wc.crawapp.MainActivity;
 import com.wc.crawapp.R;
 import com.wc.crawapp.databinding.ContainerItemBinding;
 import com.wc.crawapp.model.Product;
@@ -30,7 +31,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     }
 
     private List<Product> products = new ArrayList<>();
+    private MainActivity mContext;
 
+    public ProductAdapter(MainActivity mContext) {
+        this.mContext = mContext;
+    }
     public void setProducts(List<Product> products){
         this.products = products;
     }
@@ -52,6 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         //데이터 매칭 시키는곳
         Product product = products.get(position); //현재 위치 값 받음
         holder.containerItemBinding.setProduct(product);
+        holder.containerItemBinding.setMainActivity(mContext);
         //아까 만든 <data></data>에 이 값이 들어감
     }
 
